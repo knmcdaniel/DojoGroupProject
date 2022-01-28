@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login or Register</title>
+        {% load static %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <link rel="stylesheet" href="{% static 'css/login_registration.css' %}">
+        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+
+        
+    </head>
+    <body>
+
+        <!-- Logo -->
+        <header>
+
+            <h1>
+                <a href="/home"><img src="{% static 'images/company_logo.png' %}"/> </a>
+            </h1>
+
+            <hr>
+
+        </header>
+
+        <div class="customcontent">
+
+            <!-- Register Form -->
+            <form action="register" method="POST">
+                
+                {% csrf_token %}
+
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{{message}}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <h1 class="title"> Register </h1>
+
+                <label for="username" class="label">Username:</label>
+                <input class="input" type="text" name="username" id="username" >
+
+                <label for="password" class="label">Password:</label>
+                <input class="input" type="password" name="password" id="password">
+
+                <label for="confirm_password" class="label">Confirm Password:</label>
+                <input class="input" type="password" name="confirm_password" id="confirm_password">
+                
+                <br>
+                
+                <input class="button" type="submit" name="register" id="register" value="Register">
+
+            </form>
+
+            <!-- Login Form -->
+            <form action="login" method="POST">
+                {% csrf_token %}
+
+                <h1 class="title"> Login </h1>
+
+                <label for="username" class="label">Username:</label>
+                <input class="input" type="text" name="username" id="username" >
+
+                <label for="password" class="label">Password:</label>
+                <input class="input" type="password" name="password" id="password">
+
+                <input class="button" type="submit" name="login" id="login" value="Login">
+                
+            </form>
+        </div>
+    </body>
+</html>

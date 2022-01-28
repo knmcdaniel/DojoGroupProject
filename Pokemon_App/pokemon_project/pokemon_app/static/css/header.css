@@ -1,0 +1,30 @@
+
+/* CSS For Header */
+
+/* Image */
+header h1 img{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 200px;
+    height: 100px;
+}
+
+/*  Bar on Top */
+header hr {
+    margin: 0em;
+}
+
+/* Sets Nav Button Location */
+.logout_button {
+    float: right;
+    padding-top: 10px;
+    text-decoration: none;
+}
+
+/* Makes Buttons look better */
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
