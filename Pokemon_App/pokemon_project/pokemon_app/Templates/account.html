@@ -7,12 +7,16 @@
         <title>Account Home</title>
         {% load static %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link rel="stylesheet" href="{% static 'css/header.css' %}">
+        <link rel="stylesheet" href="{% static '/css/style.css' %}">
+        <link rel="stylesheet" href="{% static '/css/header.css' %}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         
         
     </head>
-    <body>
+    <body class="accountHome">
+        
 
         <!-- Navigation -->
         <div class="logout_button">
@@ -38,7 +42,91 @@
         <!-- Main Content -->
         <div class="content account">
             
+            <a href="/new_pokemon/bibarel"><button class="button">bibarel</button></a>
+            <a href="/new_pokemon/ditto"><button class="button">ditto</button></a>
 
+            <a href="/new_pokemon/asdfasdfasdfasd"><button class="button">Error</button></a>
+
+            
+
+        <div class="primaryPokemon">
+
+            <h1> Primary Pokemon </h1>
+            <div class="pokemon" >
+                <object id="pokemon_cube" data="https://img.pokemondb.net/artwork/large/{{user.pokemon1}}.jpg">
+                            <img  src="{% static 'images/default_logo.png' %}" alt="{{user.pokemon1}}"/>
+                </object>
+                <button type="button" class="button" data-toggle="modal" data-target="#{{user.pokemon1}}"> {{ user.pokemon1 }}</button>
+            </div>
+
+            <div class="pokemon" >
+                <object id="pokemon_cube" data="https://img.pokemondb.net/artwork/large/{{user.pokemon2}}.jpg">
+                            <img  src="{% static 'images/default_logo.png' %}" alt="{{user.pokemon2}}"/>
+                </object>
+                <button type="button" class="button" data-toggle="modal" data-target="#{{user.pokemon2}}"> {{ user.pokemon2 }}</button>
+            </div>
+
+            <div class="pokemon" >
+                <object id="pokemon_cube" data="https://img.pokemondb.net/artwork/large/{{user.pokemon3}}.jpg">
+                            <img  src="{% static 'images/default_logo.png' %}" alt="{{user.pokemon3}}"/>
+                </object>
+                <button type="button" class="button" data-toggle="modal" data-target="#{{user.pokemon3}}"> {{ user.pokemon3 }}</button>
+            </div>
+
+
+        </div>
+
+
+
+
+                <!-- Modal -->
+        <div class="collection">
+
+            <h1> Collection </h1>
+            {% for i in collected %}
+                {% if i.name != user.pokemon1 %}
+                {% if i.name != user.pokemon2 %}
+                {% if i.name != user.pokemon3 %}
+                
+                
+                <div class="pokemon" >
+                    <object id="pokemon_cube" data="https://img.pokemondb.net/artwork/large/{{i.name}}.jpg">
+                                <img  src="{% static 'images/default_logo.png' %}" alt="{{i.name}}"/>
+                    </object>
+                    <button type="button" class="button" data-toggle="modal" data-target="#{{i.name}}"> {{ i.name }}</button>
+                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="{{i.name}}" role="dialog">
+                                    <div class="modal-card">
+                                    
+                                        <!-- Modal content-->
+                                        <div class="modal-card-body">
+                
+                                                <p>{{i.name}}</p>
+                                                <img  src="https://img.pokemondb.net/artwork/large/{{i.name}}.jpg" alt="{{i.name}}"/>
+                                                <div class="modal-footer">
+                                                <p>{{ user.id }}</p>
+                                                <a href="/account/change/1/{{i.name}}"><button class="button">Make {{ i.name }} a Combat Pokemon for Slot 1</button></a>
+                                                <a href="/account/change/2/{{i.name}}"><button class="button">Make {{ i.name }} a Combat Pokemon Slot 2</button></a>
+                                                <a href="/account/change/3/{{i.name}}"><button class="button">Make {{ i.name }} a Combat Pokemon Slot 3</button></a>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        
+
+
+
+        </div>
 
         </div>
     </body>

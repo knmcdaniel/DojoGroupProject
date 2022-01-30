@@ -68,6 +68,7 @@ class Pokemon(models.Model):
     #Object
     #id
     name = models.CharField(max_length=255)
+    api_id = models.IntegerField()
     health = models.IntegerField()
     wins = models.IntegerField()
     type1 = models.CharField(max_length=255)

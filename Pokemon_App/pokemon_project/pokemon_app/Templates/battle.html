@@ -9,7 +9,16 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" href="{% static 'css/header.css' %}">
+
+
         
+
+        <script>
+            
+        </script>
+
+
+
     </head>
     <body>
 
@@ -34,8 +43,120 @@
         </header>
 
         <!-- Main Content -->
-        <div class="content">
+        <div class="customcontent">
 
+
+
+
+            <div class="combat">
+
+                <div class="combatPokemon">
+
+                    <h1 class="title"> Battle Ready </h1>
+
+                            <div class="pokemon" >
+                                <h1 class="title_cube"> {{user.pokemon1}}</h1>
+                                <object id="pokemon_cube" data="https://img.pokemondb.net/artwork/large/{{user.pokemon1}}.jpg">
+                                            <img  src="{% static 'images/default_logo.png' %}" alt="{{user.pokemon1}}"/>
+                                </object>
+                                <a href="/account/{{ user.id }}/battle/{{user.pokemon1}}"><button type="button" class="button" data-target="https://img.pokemondb.net/artwork/large/{{user.pokemon1}}.jpg"> Make Active</button></a>
+                            </div>
+                            <div class="pokemon" >
+                                <h1 class="title_cube"> {{user.pokemon2}}</h1>
+                                <object id="pokemon_cube" data="https://img.pokemondb.net/artwork/large/{{user.pokemon2}}.jpg">
+                                            <img  src="{% static 'images/default_logo.png' %}" alt="{{user.pokemon2}}"/>
+                                </object>
+                                <a href="/account/{{ user.id }}/battle/{{user.pokemon2}}"><button type="button" class="button" data-target="https://img.pokemondb.net/artwork/large/{{user.pokemon2}}.jpg"> Make Active</button></a>
+                            </div>
+                            <div class="pokemon" >
+                                <h1 class="title_cube"> {{user.pokemon3}}</h1>
+                                <object id="pokemon_cube" data="https://img.pokemondb.net/artwork/large/{{user.pokemon3}}.jpg">
+                                            <img  src="{% static 'images/default_logo.png' %}" alt="{{user.pokemon3}}"/>
+                                </object>
+                                <a href="/account/{{ user.id }}/battle/{{user.pokemon3}}"><button type="button" class="button" data-target="https://img.pokemondb.net/artwork/large/{{user.pokemon3}}.jpg"> Make Active</button></a>
+                            </div>
+
+                </div>
+
+                <div class="user">
+
+                            <h1 class="title"> {{request.session.battlePokemon}}</h1>
+
+                            <img src="https://img.pokemondb.net/artwork/large/{{request.session.battlePokemon}}.jpg">
+
+                            <p>Your Health: {{ request.session.userHealth|floatformat }}</p>
+
+                            {% if request.session.userHealth < 11 %}
+                                <progress class="progress is-danger" value={{ request.session.userHealth }} max="100"></progress>
+                            {% elif request.session.userHealth < 30 %}
+                                <progress class="progress is-warning" value={{ request.session.userHealth }} max="100"></progress>
+                            {% else %}
+                                <progress class="progress is-success" value={{ request.session.userHealth }} max="100"></progress>
+                            {% endif %}
+                            <p>You: {{ request.session.lastUserMove }}</p>
+                            <div class="combatControls">
+                                <a href="/battle/attack"><button class="button">Attack</button></a>
+                                <a href="/battle/heal"><button class="button">Heal</button></a>
+                                <a href="/battle/dodge"><button class="button">Dodge</button></a>
+                                <a href="/battle/buff"><button class="button">Buff Damage</button></a>
+                            </div>
+                </div>
+
+                <div class="enemy">
+                    <h1 class="title">{{ request.session.enemyName }}</h1>
+                    <img src={{ request.session.enemyImg }} >
+                    <p>Enemy's Health: {{ request.session.enemyHealth|floatformat }}</p>
+                    {% if request.session.enemyHealth < 11 %}
+                        <progress class="progress is-danger" value={{ request.session.enemyHealth }} max="100"></progress>
+                    {% elif request.session.enemyHealth < 30 %}
+                        <progress class="progress is-warning" value={{ request.session.enemyHealth }} max="100"></progress>
+                    {% else %}
+                        <progress class="progress is-success" value={{ request.session.enemyHealth }} max="100"></progress>
+                    {% endif %}
+                    <p>The Enemy: {{ request.session.lastEnemyMove }}</p>
+                </div>
+            </div>
+
+
+
+
+            {% if request.session.enemyHealth == 0 or request.session.userHealth == 0 %}
+                <div class='transparent'>
+
+                </div>
+
+
+                <!-- End of Fight Box -->
+                <div class="battleOver box">
+                    
+                    {% if request.session.userHealth == 0 %}
+                    <div class="endcontent">
+                        <div class="winnerImage">
+                            <img src="https://img.pokemondb.net/artwork/large/{{request.session.enemyName}}.jpg">
+                        </div>
+                        <div class="winnerContent">
+                        <h1> You Lost!</h1>
+                        <a href="/account/{{ user.id }}/battle"><button class="button">Battle Again</button></a>
+                        <a href="/account/{{ user.id }}/view"><button class="button">Go to your Account</button></a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if request.session.enemyHealth == 0 %}
+                    <div class="endcontent">
+                        <div class="winnerImage">
+                            <img src="https://img.pokemondb.net/artwork/large/{{request.session.battlePokemon}}.jpg">
+                        </div>
+                        <div class="winnerContent">
+                        <h1> Congratulations! You have defeated {{ request.session.enemyName}}!</h1>
+                            <a href="/account/{{ user.id }}/battle"><button class="button">Battle Again</button></a>
+                            <a href="/account/{{ user.id }}/add_pokemon/{{request.session.enemyName}}"><button class="button">Add Enemy to Collection</button></a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            {% endif %}
 
         </div>
     </body>
